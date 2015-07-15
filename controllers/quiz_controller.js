@@ -16,10 +16,24 @@ exports.load = function(req, res, next, quizId) {
 };
 
 // GET quizes
-exports.index = function(req, res){
-	models.Quiz.findAll().then(function(quizes) {
-		res.render('quizes/index', {quizes: quizes});
-	}).catch(function(error) {next(error);});
+exports.index = function(req, res, next){
+	if (req.query.search)
+	{
+		// Formateamos la cadena
+		var cadena = req.query.search.replace(' ','%');
+		cadena = '%' + cadena + '%';
+
+		// Buscamos en la base de datos
+		models.Quiz.findAll({where: ["pregunta like ?", cadena], order: ['pregunta']}).then(function (quizes){
+			res.render('quizes/index', {quizes: quizes});
+		}).catch(function(error) {next(error);});
+	}
+	else
+	{
+		models.Quiz.findAll().then(function(quizes) {
+			res.render('quizes/index', {quizes: quizes});
+		}).catch(function(error) {next(error);});
+	}
 };
 
 // GET quizes/:quizId
