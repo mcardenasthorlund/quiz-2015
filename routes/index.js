@@ -10,6 +10,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+// Interceptamos el parametro quizId para el autoload
+router.param('quizId', quizController.load);
+
 // Definimos las rutas
 router.get('/quizes', quizController.index);
 router.get('/quizes/:quizId(\\d+)', quizController.show);
