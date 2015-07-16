@@ -109,3 +109,12 @@ exports.update = function(req, res) {
 		.then (function(){res.redirect('/quizes');});
 	}
 };
+
+// DELETE /quizes/:quizId
+exports.destroy = function(req, res, next) {
+	req.quiz
+	.destroy()
+	.then(function(){
+		res.redirect('/quizes');
+	}).catch(function(error){next(error)});
+}
