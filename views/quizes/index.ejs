@@ -11,6 +11,7 @@ for (i=0; i< quizes.length; i++) { %>
 			<a href='/quizes/<%= quizes[i].id%>'><%= quizes[i].pregunta %></a>
 			<span> (<%= quizes[i].tematica %>)</span>
 		</td>
+		<% if (session.user) { %>
 		<td>
 			<a href='/quizes/<%= quizes[i].id %>/edit'><button>Editar</button></a>
 		</td>
@@ -21,9 +22,12 @@ for (i=0; i< quizes.length; i++) { %>
 				</button>
 			</form>
 		</td>
+		<% } %>
 	</tr>
 <% } %>
 </table>
+<% if (session.user) { %>
 <p>
 <a href='/quizes/new'><button type="button">Crear pregunta</button></a>
 </p>
+<% } %>
