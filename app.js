@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials =require('express-partials');
+var sessionController = require('./controllers/session_controller');
 
 var routes = require('./routes/index');
 
@@ -35,6 +36,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false }
 }))
+
+// Control de expiracion de la sesion
+app.use(sessionController.autoLogout);
 
 app.use(function(req, res, next) {
     // Guardamos el path de redireccion
@@ -70,6 +74,7 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
 
 // production error handler
 // no stacktraces leaked to user
