@@ -11,6 +11,12 @@ module.exports = function(sequelize, DataTypes){
 				type: DataTypes.BOOLEAN,
 				defaultValue: false
 			}
-		}
-	);
+		},
+ 		{
+   classMethods: {
+    countCommentedQuizes: function () {
+       return this.query("SELECT distinct('QuizId') FROM 'Comments'");
+      }
+    }
+  });
 };

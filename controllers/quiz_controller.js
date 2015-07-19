@@ -1,6 +1,7 @@
 // Importamos el modelo
 var models = require('../models/models.js');
 
+
 // Autoload - factoriza el codigo si en la ruta existe el parametro quizId
 exports.load = function(req, res, next, quizId) {
 	models.Quiz.find({
@@ -123,3 +124,4 @@ exports.destroy = function(req, res, next) {
 		res.redirect('/quizes');
 	}).catch(function(error){next(error)});
 }
+

@@ -6,6 +6,7 @@ var quizController = require('../controllers/quiz_controller');
 var authorController = require('../controllers/author_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
+var statisticController = require('../controllers/statistic_controller');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -20,6 +21,7 @@ router.param('commentId',						commentController.load);
 router.get('/quizes', 							quizController.index);
 router.get('/quizes/:quizId(\\d+)', 			quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', 		quizController.answer);
+router.get('/quizes/statistics',				statisticController.statistics, statisticController.show);
 router.get('/quizes/new', 						sessionController.loginRequired, quizController.new);
 router.post('/quizes/create', 					sessionController.loginRequired, quizController.create);
 router.get('/quizes/:quizId(\\d+)/edit',		sessionController.loginRequired, quizController.edit);
