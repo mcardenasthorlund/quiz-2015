@@ -12,8 +12,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors:[] });
 });
 
-// Interceptamos el parametro quizId para el autoload
+// Interceptamos los parametros para las funciones autoload
 router.param('quizId', 							quizController.load);
+router.param('commentId',						commentController.load);
 
 // Primitivas de quizes
 router.get('/quizes', 							quizController.index);
@@ -31,6 +32,7 @@ router.get('/author', 							authorController.index);
 // Primitivas de comments
 router.get('/quizes/:quizId(\\d+)/comments/new',	commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',		commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',	sessionController.loginRequired, commentController.publish);
 
 // Primitivas de sesion
 router.get('/login',							sessionController.new);
